@@ -28,34 +28,37 @@ def super_squares(my_list):
     return [a**2 for a in my_list[1::2] if a % 2 == 0]
 
 
+VALID_INPUT = False
 print "Firstly, look on these list comprehensions. Input a list:"
-while 1:
+while not VALID_INPUT:
     try:
         X = map(int, raw_input().split())
-        break
+        VALID_INPUT = True
     except ValueError as err:
         print 'Please insert only numbers. ({})'.format(err)
 print "Squares: \t", squares(X)
 print "Each second elem: \t", seconds(X)
 print "Squares of even elem in odd positions: \t", super_squares(X)
 print "-"*20
-print "Try zip() function. How many lists do you want to zip? (min = 2)"
+print "Try zip() function. How many lists do you want to zip? (min = 1)"
 LISTS_TO_ZIP = []
-while 1:
+VALID_INPUT = False
+while not VALID_INPUT:
     try:
         N = int(raw_input())
-        if N > 1:
-            break
+        if N > 0:
+            VALID_INPUT = True
         else:
-            print "Zip function works for 2 or more lists. Try again"
+            print "Zip function works for 1 or more lists. Try again"
     except ValueError as err:
         print 'Please insert only numbers. ({})'.format(err)
 for i in range(N):
     print "Ok, insert list #{}:".format(i)
-    while 1:
+    VALID_INPUT = False
+    while not VALID_INPUT:
         try:
             Y = map(int, raw_input().split())
-            break
+            VALID_INPUT = True
         except ValueError as err:
             print 'Please insert only numbers. ({})'.format(err)
     LISTS_TO_ZIP.append(Y)
