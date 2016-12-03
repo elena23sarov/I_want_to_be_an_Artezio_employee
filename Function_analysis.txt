@@ -6,9 +6,10 @@ Process finished with exit code 0
 
 C:\Python27\Scripts\pylint.exe Functions.py
 
+
 Report
 ======
-29 statements analysed.
+49 statements analysed.
 
 Statistics by type
 ------------------
@@ -33,13 +34,13 @@ Raw metrics
 +----------+-------+------+---------+-----------+
 |type      |number |%     |previous |difference |
 +==========+=======+======+=========+===========+
-|code      |29     |64.44 |29       |=          |
+|code      |50     |75.76 |50       |=          |
 +----------+-------+------+---------+-----------+
-|docstring |5      |11.11 |5        |=          |
+|docstring |5      |7.58  |5        |=          |
 +----------+-------+------+---------+-----------+
 |comment   |0      |0.00  |0        |=          |
 +----------+-------+------+---------+-----------+
-|empty     |11     |24.44 |11       |=          |
+|empty     |11     |16.67 |11       |=          |
 +----------+-------+------+---------+-----------+
 
 
@@ -63,7 +64,7 @@ Messages by category
 +-----------+-------+---------+-----------+
 |type       |number |previous |difference |
 +===========+=======+=========+===========+
-|convention |0      |0        |=          |
+|convention |0      |4        |-4.00      |
 +-----------+-------+---------+-----------+
 |refactor   |0      |0        |=          |
 +-----------+-------+---------+-----------+
@@ -76,7 +77,7 @@ Messages by category
 
 Global evaluation
 -----------------
-Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
+Your code has been rated at 10.00/10 (previous run: 9.18/10, +0.82)
 
 No config file found, using default configuration
 
