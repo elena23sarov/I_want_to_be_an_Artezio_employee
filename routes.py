@@ -35,10 +35,8 @@ def finder(departure, destination, outbound_date, return_date=''):
             and search(r'^\d{4}-\d{2}-\d{2}$', outbound_date)
             and return_valid):
         sys.exit('Wrong format. IATA format: XYZ. Date format: YYYY-MM-DD.')
-    if return_date == '':
-        oneway, oneway_flag = 1, 'on'
-    else:
-        oneway, oneway_flag = 0, ''
+    oneway = 1 if not return_date else 0
+    oneway_flag = 'on' if not return_date else ''
 
     data = {'departure': departure,
             'destination': destination,
