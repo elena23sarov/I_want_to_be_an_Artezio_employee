@@ -1,4 +1,4 @@
-"""Final task. Find desirable avia routes by www.flyniki.com."""
+"""Final task."""
 import sys
 from re import search
 import json
@@ -71,36 +71,38 @@ def finder(departure, destination, outbound_date, return_date=''):
     except KeyError:
         sys.exit('No routes found. Date or IATA-code is incorrect.')
 
-    def show_flights(flag):
-        """Find a route and print the table with results."""
-        flight_table = [to_list('Flight Time', 'Duration',
-                                tree.xpath('.//*[@class="{} block"]/div[2]/'
-                                           'table/thead/tr/td/div/label[@id]'
-                                           '/p/text()'.format(flag)))]
-        for row in tree.xpath('.//*[@class="{} block"]/div[2]/table/'
-                              'tbody/tr[@role]'.format(flag)):
-            time = '-'.join(row.xpath('.//span[contains(@id,'
-                                      '"lightDepartureFi_")]'
-                                      '/time[1]/text() | .//span[contains(@id,'
-                                      '"flightDepartureFi_")]/time[2]/text()'))
-            duration = row.xpath('string(.//span[contains(@id,'
-                                 '"flightDurationFi_")])')
-            prices = row.xpath('.//label/div[1]/span/text() | '
-                               './/span[@class="notbookable"]/text()')
-            for i, item in enumerate(prices):
-                prices[i] = item + 'RUB' if search(r'^[.,\d]+$', item) else '-'
-            flight_data = to_list(time, duration, prices)
-            flight_table.append(flight_data)
-        if len(flight_table) == 1:
-            sys.exit('No routes found. Please, choose another date.')
-        flights = Texttable()
-        flights.add_rows(flight_table)
-        print flights.draw()
     print '-----OUTBOUND FLIGHT-----'
-    show_flights('outbound')
+    show_flights('outbound', tree)
     if oneway_flag == '':
         print '-----RETURN FLIGHT-----'
-        show_flights('return')
+        show_flights('return', tree)
+
+
+def show_flights(flag, tree):
+    """Find a route and print the table with results."""
+    flight_table = [to_list('Flight Time', 'Duration',
+                            tree.xpath('.//*[@class="{} block"]/div[2]/'
+                                       'table/thead/tr/td/div/label[@id]'
+                                       '/p/text()'.format(flag)))]
+    for row in tree.xpath('.//*[@class="{} block"]/div[2]/table/'
+                          'tbody/tr[@role]'.format(flag)):
+        time = '-'.join(row.xpath('.//span[contains(@id,'
+                                  '"lightDepartureFi_")]'
+                                  '/time[1]/text() | .//span[contains(@id,'
+                                  '"flightDepartureFi_")]/time[2]/text()'))
+        duration = row.xpath('string(.//span[contains(@id,'
+                             '"flightDurationFi_")])')
+        prices = row.xpath('.//label/div[1]/span/text() | '
+                           './/span[@class="notbookable"]/text()')
+        for i, item in enumerate(prices):
+            prices[i] = item + 'RUB' if search(r'^[.,\d]+$', item) else '-'
+        flight_data = to_list(time, duration, prices)
+        flight_table.append(flight_data)
+    if len(flight_table) == 1:
+        sys.exit('No routes found. Please, choose another date.')
+    flights = Texttable()
+    flights.add_rows(flight_table)
+    print flights.draw()
 
 
 def main():
