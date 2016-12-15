@@ -1,7 +1,6 @@
 """Final task."""
 import sys
 from re import search
-import json
 from lxml import html
 import requests
 from texttable import Texttable
