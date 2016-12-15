@@ -35,8 +35,10 @@ def finder(departure, destination, outbound_date, return_date=''):
             and search(r'^\d{4}-\d{2}-\d{2}$', outbound_date)
             and return_valid):
         sys.exit('Wrong format. IATA format: XYZ. Date format: YYYY-MM-DD.')
-    oneway = 1 if return_date == '' else 0
-    oneway_flag = 'on' if oneway == 1 else ''
+    if return_date == '':
+        oneway, oneway_flag = 1, 'on'
+    else:
+        oneway, oneway_flag = 0, ''
 
     data = {'departure': departure,
             'destination': destination,
@@ -66,9 +68,6 @@ def finder(departure, destination, outbound_date, return_date=''):
                        'flight/vacancy.php', params=data)
     HEADERS['Referer'] = get_sid.url
     page = sess.post(get_sid.url, data=ajax_form, headers=HEADERS).json()
-
-    with open('routes.json', 'w') as output_file:
-        json.dump(page, output_file, indent=4, ensure_ascii=False)
     try:
         tree = html.fromstring(page['templates']['main'])
     except KeyError:
