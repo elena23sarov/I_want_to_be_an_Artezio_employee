@@ -8,7 +8,7 @@ C:\Python27\Scripts\pylint.exe C:\Users\DNS!\PycharmProjects\HackerRank/routes.p
 
 Report
 ======
-59 statements analysed.
+67 statements analysed.
 
 Statistics by type
 ------------------
@@ -22,7 +22,7 @@ Statistics by type
 +---------+-------+-----------+-----------+------------+---------+
 |method   |0      |0          |=          |0           |0        |
 +---------+-------+-----------+-----------+------------+---------+
-|function |4      |4          |=          |100.00      |0.00     |
+|function |6      |6          |=          |100.00      |0.00     |
 +---------+-------+-----------+-----------+------------+---------+
 
 
@@ -44,13 +44,13 @@ Raw metrics
 +----------+-------+------+---------+-----------+
 |type      |number |%     |previous |difference |
 +==========+=======+======+=========+===========+
-|code      |65     |52.85 |65       |=          |
+|code      |74     |53.62 |74       |=          |
 +----------+-------+------+---------+-----------+
-|docstring |42     |34.15 |42       |=          |
+|docstring |44     |31.88 |44       |=          |
 +----------+-------+------+---------+-----------+
 |comment   |0      |0.00  |0        |=          |
 +----------+-------+------+---------+-----------+
-|empty     |16     |13.01 |14       |+2.00      |
+|empty     |20     |14.49 |20       |=          |
 +----------+-------+------+---------+-----------+
 
 
@@ -74,7 +74,7 @@ Messages by category
 +-----------+-------+---------+-----------+
 |type       |number |previous |difference |
 +===========+=======+=========+===========+
-|convention |0      |0        |=          |
+|convention |0      |1        |-1.00      |
 +-----------+-------+---------+-----------+
 |refactor   |0      |0        |=          |
 +-----------+-------+---------+-----------+
@@ -87,7 +87,7 @@ Messages by category
 
 Global evaluation
 -----------------
-Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
+Your code has been rated at 10.00/10 (previous run: 9.85/10, +0.15)
 
 No config file found, using default configuration
 
