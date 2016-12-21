@@ -29,9 +29,7 @@ def date_validator(date):
     date_today = dt.datetime.combine(dt.date.today(), dt.time(0, 0))
     date_border = date_today.replace(year=date_today.year + 1)
     checking_date = dt.datetime.strptime(date, "%Y-%m-%d")
-    if date_today <= checking_date <= date_border:
-        return True
-    else:
+    if not date_today <= checking_date <= date_border:
         sys.exit('Entered date is out of the range we can search in.')
 
 
@@ -126,7 +124,7 @@ def route_parser(flag, tree):
 def main():
     """Give the results."""
     args = sys.argv[1:]
-    if not args:
+    if not 3 <= len(args) <= 4:
         print "Usage: routes.py <from> <to> <outbound_date> " \
               "<return_date>*   *optional"
         sys.exit(1)
