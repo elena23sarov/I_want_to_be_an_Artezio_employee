@@ -2,6 +2,7 @@
 import sys
 from re import search
 import datetime as dt
+import itertools
 from lxml import html
 import requests
 from texttable import Texttable
@@ -22,6 +23,17 @@ def to_list(str_1, str_2, lst):
     final_list = [str_1, str_2]
     final_list.extend(lst)
     return final_list
+
+
+def format_price(value):
+    """Change price type to float."""
+    if value == '-':
+        return 0, None
+    value = value.replace('.', '')
+    value = value.replace(',', '.')
+    currency = value[-3:]
+    price_float = float(value[:-3])
+    return price_float, currency
 
 
 def date_validator(date):
@@ -87,21 +99,40 @@ def route_finder(data, ajax_form):
     except KeyError:
         sys.exit('No routes found. Date or IATA-code is incorrect.')
 
-    print '-----OUTBOUND FLIGHT-----'
-    route_parser('outbound', tree)
-    if data['oneway'] == 0:
-        print '-----RETURN FLIGHT-----'
-        route_parser('return', tree)
+    if data['oneway'] == 1:
+        print '-----ONEWAY FLIGHT-----'
+        final = route_parser('outbound', tree, 1)
+    else:
+        print '-----ROUND FLIGHT-----'
+        out = route_parser('outbound', tree)[1:]
+        inb = route_parser('return', tree)[1:]
+        final = [['Time Out', 'Duration', 'Time In', 'Duration', 'Price']]
+        cur = format_price(out[0][2][0])[1]
+        for pair in itertools.product(out, inb):
+            sums_out = [format_price(i)[0] for i in pair[0][2]]
+            sums_in = [format_price(i)[0] for i in pair[1][2]]
+            for price in itertools.product(sums_out, sums_in):
+                if 0 not in price:
+                    final.append([pair[0][0], pair[0][1], pair[1][0],
+                                  pair[1][1], '{} {}'.format(sum(price), cur)])
+    pretty_view(final)
 
 
-def route_parser(flag, tree):
+def pretty_view(final):
+    """Print pretty flight table."""
+    flights = Texttable()
+    flights.add_rows(final)
+    print flights.draw()
+
+
+def route_parser(way, tree, flag=None):
     """Find a route and print the table with results."""
     flight_table = [to_list('Flight Time', 'Duration',
                             tree.xpath('.//*[@class="{} block"]/div[2]/'
                                        'table/thead/tr/td/div/label[@id]'
-                                       '/p/text()'.format(flag)))]
+                                       '/p/text()'.format(way)))]
     for row in tree.xpath('.//*[@class="{} block"]/div[2]/table/'
-                          'tbody/tr[@role]'.format(flag)):
+                          'tbody/tr[@role]'.format(way)):
         time = '-'.join(row.xpath('.//span[contains(@id,'
                                   '"lightDepartureFi_")]'
                                   '/time[1]/text() | .//span[contains(@id,'
@@ -112,13 +143,12 @@ def route_parser(flag, tree):
                            './/span[@class="notbookable"]/text()')
         for i, item in enumerate(prices):
             prices[i] = item + 'RUB' if search(r'^[.,\d]+$', item) else '-'
-        flight_data = to_list(time, duration, prices)
+        flight_data = to_list(time, duration, prices) if flag \
+            else [time, duration, prices]
         flight_table.append(flight_data)
     if len(flight_table) == 1:
         sys.exit('No routes found. Please, choose another date.')
-    flights = Texttable()
-    flights.add_rows(flight_table)
-    print flights.draw()
+    return flight_table
 
 
 def main():
