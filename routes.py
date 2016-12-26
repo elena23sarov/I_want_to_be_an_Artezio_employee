@@ -99,7 +99,7 @@ def route_finder():
 
     if DATA['oneway'] == 1:
         print '-----ONEWAY FLIGHT-----'
-        final = route_parser('outbound', tree, 1)[0]
+        final = route_parser('outbound', tree, True)[0]
     else:
         print '-----ROUND FLIGHT-----'
         out = route_parser('outbound', tree)[0][1:]
@@ -116,7 +116,7 @@ def route_finder():
     return final
 
 
-def route_parser(way, tree, flag=None):
+def route_parser(way, tree, one_way=False):
     """Find a route and print the table with results."""
     flight_table = [to_list('Flight Time', 'Duration',
                             tree.xpath('.//*[@class="{} block"]/div[2]/'
@@ -136,7 +136,7 @@ def route_parser(way, tree, flag=None):
                            './/span[@class="notbookable"]/text()')
         for i, item in enumerate(prices):
             prices[i] = item + currency if search(r'^[.,\d]+$', item) else '-'
-        flight_data = to_list(time, duration, prices) if flag \
+        flight_data = to_list(time, duration, prices) if one_way \
             else [time, duration, prices]
         flight_table.append(flight_data)
     if len(flight_table) == 1:
