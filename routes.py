@@ -67,10 +67,9 @@ def arg_validator(departure, destination, outbound_date, return_date=''):
         in_date = dt.datetime.strptime(return_date, "%Y-%m-%d")
         if not date_today <= in_date <= date_border:
             sys.exit('Entered date is out of the range we can search in.')
-    prepare_request(departure, destination, outbound_date, return_date)
 
 
-def prepare_request(departure, destination, outbound_date, return_date):
+def prepare_request(departure, destination, outbound_date, return_date=''):
     """Make dicts for request."""
     DATA['departure'] = departure
     DATA['destination'] = destination
@@ -153,6 +152,7 @@ def main():
               "<return_date>*   *optional"
         sys.exit(1)
     arg_validator(*args)
+    prepare_request(*args)
     final = route_finder()
     flights = Texttable()
     flights.add_rows(final)
