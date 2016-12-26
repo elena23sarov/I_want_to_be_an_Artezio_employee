@@ -1,7 +1,6 @@
 C:\Python27\Scripts\flake8.exe --max-complexity 10 C:\Users\DNS!\PycharmProjects\HackerRank/routes.py
 
 Process finished with exit code 0
-
 -----------------------------------------------------------
 C:\Python27\Scripts\pylint.exe C:\Users\DNS!\PycharmProjects\HackerRank/routes.py
 
@@ -22,7 +21,7 @@ Statistics by type
 +---------+-------+-----------+-----------+------------+---------+
 |method   |0      |0          |=          |0           |0        |
 +---------+-------+-----------+-----------+------------+---------+
-|function |7      |8          |-1.00      |100.00      |0.00     |
+|function |7      |7          |=          |100.00      |0.00     |
 +---------+-------+-----------+-----------+------------+---------+
 
 
@@ -44,13 +43,13 @@ Raw metrics
 +----------+-------+------+---------+-----------+
 |type      |number |%     |previous |difference |
 +==========+=======+======+=========+===========+
-|code      |106    |64.63 |96       |+10.00     |
+|code      |106    |64.63 |106      |=          |
 +----------+-------+------+---------+-----------+
-|docstring |36     |21.95 |45       |-9.00      |
+|docstring |36     |21.95 |36       |=          |
 +----------+-------+------+---------+-----------+
 |comment   |0      |0.00  |0        |=          |
 +----------+-------+------+---------+-----------+
-|empty     |22     |13.41 |24       |-2.00      |
+|empty     |22     |13.41 |22       |=          |
 +----------+-------+------+---------+-----------+
 
 
@@ -74,7 +73,7 @@ Messages by category
 +-----------+-------+---------+-----------+
 |type       |number |previous |difference |
 +===========+=======+=========+===========+
-|convention |0      |1        |-1.00      |
+|convention |0      |0        |=          |
 +-----------+-------+---------+-----------+
 |refactor   |0      |0        |=          |
 +-----------+-------+---------+-----------+
@@ -87,7 +86,7 @@ Messages by category
 
 Global evaluation
 -----------------
-Your code has been rated at 10.00/10 (previous run: 9.89/10, +0.11)
+Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
 
 No config file found, using default configuration
 
